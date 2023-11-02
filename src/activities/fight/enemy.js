@@ -1,7 +1,7 @@
 const width = 40;
 const height = 40;
 
-const Enemy = {
+const config = {
 	width,
 	height,
 	draw(ctx, position) {
@@ -10,4 +10,4 @@ const Enemy = {
 	},
 };
 
-export { Enemy };
+export default config;

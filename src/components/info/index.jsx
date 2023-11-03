@@ -1,10 +1,18 @@
+import { useCallback, useState } from "react";
 import { addSlingshot, eatPear, resetState, useAppDispatch, useAppState } from "../../store";
 import { changeDay, changeGold, changeHealth, changePears, resetDay } from "../../store/actions";
 import { Wheel } from "../Wheel";
+import { Promocode } from "../../screens/Promocode";
 
 export function Info() {
   const state = useAppState()
   const dispatch = useAppDispatch()
+
+  const [showPromocode, setShowPromocode] = useState(false)
+
+  const handleClosePromocode = useCallback(() => {
+    setShowPromocode(false)
+  }, [])
 
   const handleEatPear = () => {
     dispatch(eatPear())
@@ -57,10 +65,8 @@ export function Info() {
       {state.day >= 1 && <button onClick={handleEatPear} disabled={(state.health === 3 && state.power) || !state.pears}>Съесть грушу</button>}
     </div>
     <div>
-      промокод:
-      <form onSubmit={handlePromocode}>
-        <input type="text" name="promocode" />
-      </form>
+      <button onClick={() => setShowPromocode(true)}>Промокод</button>
+      { showPromocode && <Promocode onClose={handleClosePromocode} />}
     </div>
   </div>
 }

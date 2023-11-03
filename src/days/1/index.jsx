@@ -1,18 +1,22 @@
+import { stories } from "../../data/stories";
 import { useIterator } from "../../hooks/useIterator";
-import { Country } from "./stages/Country";
-import { Intro } from "./stages/Intro";
+import { Sleeping } from "../../screens/Sleeping";
+import { Story } from "../../screens/Story";
 import { Tree } from "./stages/Tree";
 
 const stages = [
   'intro',
   'tree',
-  'country'
+  'country',
+  'sleep'
 ]
 
 export function Day1({ onFinish }) {
   const { element, next } = useIterator(stages)
 
-  if (element === 'intro') return <Intro onFinish={next} />
+  if (element === 'intro') return <Story slides={stories.intro} onFinish={next} />
   if (element === 'tree') return <Tree onFinish={next} />
-  return <Country onFinish={onFinish} />
+  if (element === 'country') return <Story slides={stories.country1} onFinish={next} />
+
+  return <Sleeping onFinish={onFinish} />
 }

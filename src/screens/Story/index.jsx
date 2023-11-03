@@ -1,19 +1,23 @@
 import { useCallback } from "react";
 import { useIterator } from "../../hooks/useIterator";
 import { Text } from "../Text";
+import { useAppDispatch } from "../../store";
 
-export function Story({ slides, nextText = 'Дальше', onFinish, onAction }) {
+
+export function Story({ slides, nextText = 'Дальше', onFinish }) {
+  const dispatch = useAppDispatch()
+
   const { element, next: nextIndex, isFinished } = useIterator(slides)
 
   const handleNext = useCallback(() => {
-    if (element.action && typeof onAction === 'function') {
-      onAction(element.action, element)
+    if (element.action) {
+      dispatch(element.action)
     }
 
     if (isFinished) onFinish()
     else nextIndex()
 
-  }, [element, isFinished, nextIndex, onAction, onFinish])
+  }, [element, dispatch, isFinished, nextIndex, onFinish])
 
 
   return <div>

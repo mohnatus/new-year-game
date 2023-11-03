@@ -1,13 +1,13 @@
-import { days } from './game';
+
 
 // let start = new Date(2023, 11, 1);
 
 const start = new Date();
 start.setHours(0, 0, 0, 0);
-start.setDate(start.getDate() - days.length + 1);
+start.setDate(start.getDate() - 30);
 
 const finish = new Date(+start);
-finish.setDate(finish.getDate() + days.length - 1);
+finish.setDate(finish.getDate() + 30);
 
 const today = new Date();
 today.setHours(0, 0, 0, 0);

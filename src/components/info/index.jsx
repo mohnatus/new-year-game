@@ -1,5 +1,6 @@
 import { addSlingshot, eatPear, resetState, useAppDispatch, useAppState } from "../../store";
 import { changeDay, changeGold, changeHealth, changePears, resetDay } from "../../store/actions";
+import { Wheel } from "../Wheel";
 
 export function Info() {
   const state = useAppState()
@@ -21,6 +22,8 @@ export function Info() {
   }
 
   return <div>
+    <Wheel />
+
     <div>
       <button onClick={() => dispatch(resetState())}>RESET</button>
       <button onClick={() => dispatch(resetDay())}>RESET DAY</button>
@@ -49,6 +52,7 @@ export function Info() {
     <div>Рогатка: {state.slingshot ? 'Yes' : 'No'}</div>
     <div>Лекарство: {state.medicine ? 'Yes' : 'No'}</div>
     <div>Сидр: {state.cider ? 'Yes' : 'No'}</div>
+    <div>Вино: {state.wine}</div>
     <div>
       {state.day >= 1 && <button onClick={handleEatPear} disabled={(state.health === 3 && state.power) || !state.pears}>Съесть грушу</button>}
     </div>

@@ -8,6 +8,7 @@ export const defaultState = {
 	pears: 0,
 
 	gold: 0,
+	wine: 0,
 
 	slingshot: false,
 	medicine: false,
@@ -23,6 +24,6 @@ export const defaultState = {
 		ground: 0
 	},
 
-	wheel: null
+	wheel: null,
 
 };

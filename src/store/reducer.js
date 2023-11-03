@@ -17,6 +17,7 @@ import {
 	ADD_PET,
 	CHANGE_COMPANION,
 	CHANGE_MAGIC,
+	CHANGE_WINE,
 } from './actions';
 import { defaultState } from './constants';
 
@@ -156,6 +157,12 @@ export const reducer = (state = defaultState, action) => {
 				...state,
 				companion: action.payload,
 			};
+
+		case CHANGE_WINE:
+			return {
+				...state,
+				wine: state.wine + action.payload
+			}
 
 		default:
 			return state;

@@ -13,6 +13,7 @@ export const ADD_PET = 'add_pet';
 export const APPLY_POWER = 'apply_power';
 export const BUY_CIDER = 'buy_cider';
 export const CHANGE_MAGIC = 'change_magic';
+export const CHANGE_WINE = 'change_wine';
 
 export const RESET_STATE = 'reset_state';
 export const RESET_DAY = 'reset_day';
@@ -112,6 +113,13 @@ export function addPet() {
 	return {
 		type: ADD_PET,
 	};
+}
+
+export function changeWine(count) {
+	return {
+		type: CHANGE_WINE,
+		payload: count
+	}
 }
 
 export function resetState() {

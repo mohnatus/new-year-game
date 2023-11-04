@@ -1,17 +1,21 @@
 import { useIterator } from '../../hooks/useIterator'
-import { Going } from '../../screens/Going';
-import { PearTree } from "../../screens/PearTree";
 import { Story } from "../../screens/Story"
 import { stories } from '../../data/stories';
+import { Choice } from './stages/Choice';
+import { Sleeping } from '../../screens/Sleeping';
 
 const stages = [
-
+  'gopher',
+  'choice',
+  'sleep'
 ]
 
 export function Day6({ onFinish }) {
   const { element, next } = useIterator(stages);
 
-  if (element === '') return <div></div>
+  if (element === 'gopher') return <Story slides={stories.gopher} onFinish={next} />
+  if (element === 'choice') return <Choice onFinish={next} />
 
-  return <div>day 6</div>
+
+  return <Sleeping onFinish={onFinish} />
 }

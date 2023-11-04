@@ -32,17 +32,10 @@ export const reducer = (state = defaultState, action) => {
 			return defaultState;
 
 		case RESET_DAY:
-			if (state.stage > 0)
 				return {
 					...state,
-					stage: 0,
+					finishedDay: state.day - 1
 				};
-
-			return {
-				...state,
-				day: state.day - 1,
-				stage: 0,
-			};
 
 		case CHANGE_DAY:
 			return {

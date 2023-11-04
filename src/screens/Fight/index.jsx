@@ -5,7 +5,7 @@ import { init } from "../../activities/fight";
 const Field = memo(({ id, onFinish }) => {
   useEffect(() => {
     init(id, onFinish)
-  }, [id])
+  }, [id, onFinish])
 
   return <canvas id={id} width="300" height="300" style={{ border: '1px solid' }}></canvas>
 })
@@ -19,10 +19,9 @@ export function Fight({ onFinish }) {
   const [inactive, setInactive] = useState(false)
 
   const handleFinish = useCallback((result) => {
-    console.log('finish', result)
     if (result === 'win') {
       dispatch(changeGold(tries > 0 ? 1 : 2))
-      onFinish()
+      onFinish('win')
     } else {
       setTries(prev => prev + 1);
       setInactive(true)
@@ -34,6 +33,6 @@ export function Fight({ onFinish }) {
       {inactive ? <button onClick={() => setInactive(false)}>Попробовать еще раз</button> : <button onClick={() => setStarted(true)}>Начать сражение</button>}
     </div>}
 
-    <button onClick={onFinish}>Сбежать</button>
+    <button onClick={() => onFinish('lose')}>Сбежать</button>
   </div>
 }

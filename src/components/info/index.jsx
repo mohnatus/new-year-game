@@ -63,6 +63,17 @@ export function Info() {
     <div>Вино: {state.wine}
       <button onClick={() => dispatch(changeWine(-1))} disabled={state.wine < 1}>Обменять вино на вкусняшку</button>
     </div>
+    <div>Магия:
+
+      water {state.magic.water}
+      <br />
+      air {state.magic.air}
+      <br />
+      fire {state.magic.fire}
+      <br />
+      ground {state.magic.ground}
+      <br />
+    </div>
     <div>
       {state.day >= 1 && <button onClick={handleEatPear} disabled={(state.health === 3 && state.power) || !state.pears}>Съесть грушу</button>}
     </div>

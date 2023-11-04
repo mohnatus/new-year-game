@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { addSlingshot, eatPear, resetState, useAppDispatch, useAppState } from "../../store";
-import { changeDay, changeGold, changeHealth, changePears, resetDay } from "../../store/actions";
+import { changeDay, changeGold, changeHealth, changePears, changeWine, resetDay } from "../../store/actions";
 import { Wheel } from "../Wheel";
 import { Promocode } from "../../screens/Promocode";
 
@@ -60,7 +60,9 @@ export function Info() {
     <div>Рогатка: {state.slingshot ? 'Yes' : 'No'}</div>
     <div>Лекарство: {state.medicine ? 'Yes' : 'No'}</div>
     <div>Сидр: {state.cider ? 'Yes' : 'No'}</div>
-    <div>Вино: {state.wine}</div>
+    <div>Вино: {state.wine}
+      <button onClick={dispatch(changeWine(-1))} disabled={state.wine < 1}>Обменять вино на вкусняшку</button>
+    </div>
     <div>
       {state.day >= 1 && <button onClick={handleEatPear} disabled={(state.health === 3 && state.power) || !state.pears}>Съесть грушу</button>}
     </div>

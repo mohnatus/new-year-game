@@ -16,6 +16,7 @@ export const CHANGE_MAGIC = 'change_magic';
 export const CHANGE_WINE = 'change_wine';
 export const ADD_PROMOCODE = 'add_promocode'
 export const ADD_LEARNING = 'add_learning'
+export const ADD_PUZZLE = 'add_puzzle'
 
 export const RESET_STATE = 'reset_state';
 export const RESET_DAY = 'reset_day';
@@ -134,6 +135,13 @@ export function addPromocode(code) {
 export function addLearning(name) {
 	return {
 		type: ADD_LEARNING,
+		payload: name
+	}
+}
+
+export function addPuzzle(name) {
+	return {
+		type: ADD_PUZZLE,
 		payload: name
 	}
 }

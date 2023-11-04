@@ -20,6 +20,7 @@ import {
 	CHANGE_WINE,
 	ADD_PROMOCODE,
 	ADD_LEARNING,
+	ADD_PUZZLE,
 } from './actions';
 import { defaultState } from './constants';
 
@@ -178,6 +179,12 @@ export const reducer = (state = defaultState, action) => {
 			return {
 				...state,
 				learning: [...state.learning, action.payload]
+			}
+
+		case ADD_PUZZLE:
+			return {
+				...state,
+				puzzles: [...state.puzzles, action.payload]
 			}
 
 		default:

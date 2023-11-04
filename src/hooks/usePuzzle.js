@@ -6,20 +6,20 @@ import { addPuzzle } from '../store/actions';
 export function usePuzzle() {
 	const dispatch = useAppDispatch();
 	const { puzzles } = useAppState();
-	const puzzle = useRef();
+	const puzzleName = useRef();
 
-	useEffect(() => {
-		if (puzzle.current) return;
-
+	if (!puzzleName.current) {
 		const allPuzzles = Object.keys(puzzlesList);
 		const availablePuzzles = allPuzzles.filter(
 			(key) => !puzzles.includes(key)
 		);
 		const randomIndex = Math.floor(Math.random() * availablePuzzles.length);
-		const puzzleName = availablePuzzles[randomIndex];
-		puzzle.current = puzzlesList[puzzleName];
-		dispatch(addPuzzle(puzzleName));
-	}, [dispatch, puzzles]);
+		puzzleName.current = availablePuzzles[randomIndex];
+	}
 
-	return puzzle;
+	useEffect(() => {
+		dispatch(addPuzzle(puzzleName.current));
+	}, [dispatch]);
+
+	return puzzlesList[puzzleName.current];
 }

@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { usePuzzle } from "../../../../hooks/usePuzzle"
-import { useAppDispatch } from "../../../../store"
+import { usePuzzle } from "../../hooks/usePuzzle"
 
 export function Obstacle({ onFinish }) {
-  const dispatch = useAppDispatch()
   const puzzle = usePuzzle()
+
+  console.log({ puzzle })
 
   const [errors, setErrors] = useState([])
   const [success, setSuccess] = useState(false)

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { promocodes } from "../../data/promocodes"
+import { promocodes as promocodesList } from "../../data/promocodes"
 import { useAppDispatch, useAppState } from "../../store"
 import { addPromocode } from "../../store/actions"
 
@@ -15,12 +15,11 @@ export function Promocode({ onClose }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     const normalizedCode = code.trim().toLowerCase()
-    const result = promocodes[normalizedCode]
+    const result = promocodesList[normalizedCode]
 
     if (!result) {
       setError(true)
     } else {
-
       if (promocodes.includes(normalizedCode)) {
         setIsUsed(true);
         return;

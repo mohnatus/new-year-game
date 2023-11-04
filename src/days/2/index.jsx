@@ -20,7 +20,7 @@ export function Day2({ onFinish }) {
   if (element === 'country') return <Story slides={stories.country2} onFinish={next} />
   if (element === 'fight') return <Rats onFinish={next} />
   if (element === 'road1') return <Story slides={stories.road21} onFinish={next} />
-  if (element === 'tree') return <PearTree next={next} />
+  if (element === 'tree') return <PearTree onFinish={next} />
   if (element === 'road2') return <Story slides={stories.road22} onFinish={next} />
 
   return <Going onFinish={onFinish} />

@@ -18,6 +18,8 @@ import {
 	CHANGE_COMPANION,
 	CHANGE_MAGIC,
 	CHANGE_WINE,
+	ADD_PROMOCODE,
+	ADD_LEARNING,
 } from './actions';
 import { defaultState } from './constants';
 
@@ -142,7 +144,9 @@ export const reducer = (state = defaultState, action) => {
 				...state,
 				magic: {
 					...state.magic,
-					[action.payload.magic]: state.magic[action.payload.magic] + action.payload.count,
+					[action.payload.magic]:
+						state.magic[action.payload.magic] +
+						action.payload.count,
 				},
 			};
 
@@ -161,7 +165,19 @@ export const reducer = (state = defaultState, action) => {
 		case CHANGE_WINE:
 			return {
 				...state,
-				wine: state.wine + action.payload
+				wine: state.wine + action.payload,
+			};
+
+		case ADD_PROMOCODE:
+			return {
+				...state,
+				promocodes: [...state.promocodes, action.payload],
+			};
+
+		case ADD_LEARNING:
+			return {
+				...state,
+				learning: [...state.learning, action.payload]
 			}
 
 		default:

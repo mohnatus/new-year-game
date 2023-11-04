@@ -26,4 +26,8 @@ export const defaultState = {
 
 	wheel: null,
 
+	promocodes: [],
+
+	learning: []
+
 };

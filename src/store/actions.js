@@ -14,6 +14,8 @@ export const APPLY_POWER = 'apply_power';
 export const BUY_CIDER = 'buy_cider';
 export const CHANGE_MAGIC = 'change_magic';
 export const CHANGE_WINE = 'change_wine';
+export const ADD_PROMOCODE = 'add_promocode'
+export const ADD_LEARNING = 'add_learning'
 
 export const RESET_STATE = 'reset_state';
 export const RESET_DAY = 'reset_day';
@@ -119,6 +121,20 @@ export function changeWine(count) {
 	return {
 		type: CHANGE_WINE,
 		payload: count
+	}
+}
+
+export function addPromocode(code) {
+	return {
+		type: ADD_PROMOCODE,
+		payloayd: code
+	}
+}
+
+export function addLearning(name) {
+	return {
+		type: ADD_LEARNING,
+		payload: name
 	}
 }
 

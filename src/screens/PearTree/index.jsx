@@ -1,17 +1,34 @@
+import { learnings } from "../../data/learnings";
 import { useAppDispatch, useAppState, changePears } from "../../store";
+import { addLearning } from "../../store/actions";
+import { Story } from "../Story";
 
-export function PearTree({ next }) {
+export function PearTree({ onFinish }) {
   const dispatch = useAppDispatch()
-  const state = useAppState()
+  const { slingshot, learning } = useAppState()
+
+  console.log({ learning, slingshot }, !learning.includes('treeSling') && slingshot)
+
+  const handleFinishLearning = (key) => {
+    dispatch(addLearning(key))
+  }
+
 
   const handleClick = (count) => {
     dispatch(changePears(count))
-    next()
+    onFinish()
   }
 
   return <div>
-    Грушевое дерево
-    <button onClick={() => handleClick(1)}>Собрать упавшие груши</button>
-    {state.slingshot && <button onClick={() => handleClick(2)}>Сбить груши рогаткой</button>}
+    <div>
+      Грушевое дерево
+      <button onClick={() => handleClick(1)}>Собрать упавшие груши</button>
+      {slingshot && <button onClick={() => handleClick(2)}>Сбить груши рогаткой</button>}
+    </div>
+
+
+    {!learning.includes('tree') && <Story slides={learnings.tree} onFinish={() => handleFinishLearning('tree')} />}
+    
+    {!learning.includes('treeSling') && slingshot && <Story slides={learnings.treeSling} onFinish={() => handleFinishLearning('treeSling')} />}
   </div>
 }

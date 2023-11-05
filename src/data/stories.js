@@ -1,5 +1,7 @@
 import { changePears, changeWine } from '../store/actions';
 
+
+
 export const stories = {
 	// day 1
 	intro: [
@@ -145,6 +147,12 @@ export const stories = {
 	],
 
 	// day 8
+	city: [
+		{ text: 'На следующий день герой пришел в большой город Котявск' },
+		{ text: 'Он знал, что здесь много воров и мошенников' },
+		{ text: 'Первым делом герой пошел к местному волшебнику, чтобы пополнить свой запас заклинаний' },
+
+	]
 
 
 	// day 9

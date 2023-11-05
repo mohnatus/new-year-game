@@ -11,7 +11,6 @@ import {
 	REMOVE_MEDICINE,
 	RESET_STATE,
 	APPLY_POWER,
-	BUY_CIDER,
 	RESET_DAY,
 	CHANGE_DAY,
 	ADD_PET,
@@ -21,6 +20,7 @@ import {
 	ADD_PROMOCODE,
 	ADD_LEARNING,
 	ADD_PUZZLE,
+	ADD_CIDER,
 } from './actions';
 import { defaultState } from './constants';
 
@@ -104,7 +104,6 @@ export const reducer = (state = defaultState, action) => {
 		case ADD_MEDICINE:
 			return {
 				...state,
-				pears: state.pears - action.payload,
 				medicine: true,
 			};
 
@@ -126,10 +125,9 @@ export const reducer = (state = defaultState, action) => {
 				power: false,
 			};
 
-		case BUY_CIDER:
+		case ADD_CIDER:
 			return {
 				...state,
-				pears: state.pears - action.payload,
 				cider: true,
 			};
 

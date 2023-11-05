@@ -7,7 +7,7 @@ export function useIterator(array) {
 	const element = array[index]
 
 	const next = useCallback(() => {
-		setIndex((prev) => Math.min(prev + 1, array.length - 1));
+		setIndex((prev) => Math.min(prev + 1, array.length));
 	}, [array.length]);
 
 	useEffect(() => {

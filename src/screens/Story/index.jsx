@@ -7,6 +7,8 @@ import { useAppDispatch } from "../../store";
 export function Story({ slides, nextText = 'Дальше', onFinish }) {
   const dispatch = useAppDispatch()
 
+  console.log({ slides })
+
   const { element, next: nextIndex, isFinished } = useIterator(slides)
 
   const handleNext = useCallback(() => {

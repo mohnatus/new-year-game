@@ -11,7 +11,7 @@ export const CHANGE_HEALTH = 'change_health';
 export const CHANGE_COMPANION = 'change_companion';
 export const ADD_PET = 'add_pet';
 export const APPLY_POWER = 'apply_power';
-export const BUY_CIDER = 'buy_cider';
+export const ADD_CIDER = 'add_cider';
 export const CHANGE_MAGIC = 'change_magic';
 export const CHANGE_WINE = 'change_wine';
 export const ADD_PROMOCODE = 'add_promocode'
@@ -65,10 +65,9 @@ export function addSlingshot() {
 	};
 }
 
-export function addMedicine(count) {
+export function addMedicine() {
 	return {
 		type: ADD_MEDICINE,
-		payload: count,
 	};
 }
 
@@ -91,9 +90,9 @@ export function applyPower() {
 	};
 }
 
-export function buyCider(count) {
+export function addCider(count) {
 	return {
-		type: BUY_CIDER,
+		type: ADD_CIDER,
 		payload: count,
 	};
 }

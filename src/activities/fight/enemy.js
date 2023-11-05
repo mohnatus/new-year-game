@@ -4,9 +4,12 @@ const height = 40;
 const config = {
 	width,
 	height,
-	draw(ctx, position) {
+	draw(ctx, object) {
 		ctx.fillStyle = 'green';
-		ctx.fillRect(position.x, position.y, width, height);
+		if (object.lives <= 4) ctx.fillStyle = 'yellow';
+		if (object.lives <= 2) ctx.fillStyle = 'red';
+		
+		ctx.fillRect(object.x, object.y, width, height);
 	},
 };
 

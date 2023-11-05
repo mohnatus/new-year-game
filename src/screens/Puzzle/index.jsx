@@ -5,7 +5,7 @@ import { changeGold, changeMagic, changeWine } from "../../store/actions"
 
 const magics = ['fire', 'air', 'water', 'ground']
 
-export function Obstacle({ onFinish }) {
+export function Puzzle({ magic, onFinish }) {
   const dispatch = useAppDispatch()
   const puzzle = usePuzzle()
 
@@ -28,22 +28,22 @@ export function Obstacle({ onFinish }) {
 
   const getPears = () => {
     dispatch(changePears(2))
-    onFinish();
+    onFinish('pears');
   }
 
   const getWine = () => {
     dispatch(changeWine(1))
-    onFinish();
+    onFinish('wine');
   }
 
   const getGold = () => {
     dispatch(changeGold(1))
-    onFinish();
+    onFinish('gold');
   }
 
   const getMagic = () => {
-    dispatch(changeMagic(magics[magicIndex.current], 1))
-    onFinish();
+    dispatch(changeMagic(magic || magics[magicIndex.current], 1))
+    onFinish('magic');
   }
 
   return <div>
@@ -57,9 +57,9 @@ export function Obstacle({ onFinish }) {
       Правильный ответ!
       Вы сделали {errors.length} ошибок. Выберите подарок:
 
-      <button onClick={getMagic} disabled={errors.length < 1}>Магия {magics[magicIndex.current]} +1</button>
-      <button onClick={getGold} disabled={errors.length < 2}>Золото +1</button>
-      <button onClick={getPears} disabled={errors.length < 3}>Груши +2</button>
+      <button onClick={getMagic} disabled={errors.length > 0}>Магия {magic || magics[magicIndex.current]} +1</button>
+      <button onClick={getGold} disabled={errors.length > 1}>Золото +1</button>
+      <button onClick={getPears} disabled={errors.length > 2}>Груши +2</button>
 
       <button onClick={getWine}>Вино +1</button>
     </div>}

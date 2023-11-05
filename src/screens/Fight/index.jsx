@@ -1,38 +1,52 @@
-import { memo, useCallback, useEffect, useId, useState } from "react";
-import { useAppDispatch, changeGold } from "../../store"
-import { init } from "../../activities/fight";
+import { useCallback, useEffect, useState } from "react";
+import { useAppDispatch, changeGold, useAppState } from "../../store"
+import { WIN, init, killEnemies, shot } from "../../activities/fight";
 
-const Field = memo(({ id, onFinish }) => {
-  useEffect(() => {
-    init(id, onFinish)
-  }, [id, onFinish])
-
-  return <canvas id={id} width="300" height="300" style={{ border: '1px solid' }}></canvas>
-})
-
-export function Fight({ onFinish }) {
+export function Fight({ magic, onFinish }) {
   const dispatch = useAppDispatch();
-  const id = useId()
+  const state = useAppState()
 
   const [started, setStarted] = useState(false)
   const [tries, setTries] = useState(0)
   const [inactive, setInactive] = useState(false)
 
-  const handleFinish = useCallback((result) => {
-    if (result === 'win') {
-      dispatch(changeGold(tries > 0 ? 1 : 2))
-      onFinish('win')
-    } else {
-      setTries(prev => prev + 1);
-      setInactive(true)
+  const handleUseMagic = () => {
+    killEnemies(3, magic)
+  }
+
+  const handleShot = () => {
+    shot()
+  }
+
+  const start = () => {
+    setInactive(false)
+    setStarted(true)
+
+    const handleFinish = (result) => {
+      if (result === WIN) {
+        dispatch(changeGold(tries > 0 ? 1 : 2))
+        onFinish('win')
+      } else {
+        setTries(prev => prev + 1);
+        setInactive(true)
+      }
     }
-  }, [dispatch, tries, onFinish])
+
+    init(handleFinish)
+  }
 
   return <div>
-    {started && !inactive ? <Field id={id} onFinish={handleFinish} /> : <div>
-      {inactive ? <button onClick={() => setInactive(false)}>Попробовать еще раз</button> : <button onClick={() => setStarted(true)}>Начать сражение</button>}
-    </div>}
-
     <button onClick={() => onFinish('lose')}>Сбежать</button>
+
+    <div>
+      {started && !inactive ? <div>
+        <button disabled={state.magic[magic] > 0} onClick={handleUseMagic}>Использовать магию {magic}</button>
+        <button onClick={handleShot}>Стрелять</button>
+      </div> : <div>
+        {inactive ? <button onClick={start}>Попробовать еще раз</button> : <button onClick={start}>Начать сражение</button>}
+      </div>}
+    </div>
+
+
   </div>
 }

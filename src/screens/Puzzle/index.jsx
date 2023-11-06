@@ -1,15 +1,11 @@
-import { useId, useRef, useState } from "react"
+import { useState } from "react"
 import { usePuzzle } from "../../hooks/usePuzzle"
 import { changePears, useAppDispatch } from "../../store"
 import { changeGold, changeMagic, changeWine } from "../../store/actions"
 
-const magics = ['fire', 'air', 'water', 'ground']
-
 export function Puzzle({ magic, onFinish }) {
   const dispatch = useAppDispatch()
   const puzzle = usePuzzle()
-
-  const magicIndex = useRef(Math.floor(Math.random() * magics.length))
 
   const [errors, setErrors] = useState([])
   const [success, setSuccess] = useState(false)
@@ -42,7 +38,7 @@ export function Puzzle({ magic, onFinish }) {
   }
 
   const getMagic = () => {
-    dispatch(changeMagic(magic || magics[magicIndex.current], 1))
+    dispatch(changeMagic(magic , 1))
     onFinish('magic');
   }
 
@@ -57,7 +53,7 @@ export function Puzzle({ magic, onFinish }) {
       Правильный ответ!
       Вы сделали {errors.length} ошибок. Выберите подарок:
 
-      <button onClick={getMagic} disabled={errors.length > 0}>Магия {magic || magics[magicIndex.current]} +1</button>
+      <button onClick={getMagic} disabled={errors.length > 0}>Магия {magic} +1</button>
       <button onClick={getGold} disabled={errors.length > 1}>Золото +1</button>
       <button onClick={getPears} disabled={errors.length > 2}>Груши +2</button>
 

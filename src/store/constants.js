@@ -28,6 +28,8 @@ export const defaultState = {
 
 	promocodes: [],
 	learning: [],
-	puzzles: []
+	puzzles: [],
+
+	stages: {}
 
 };

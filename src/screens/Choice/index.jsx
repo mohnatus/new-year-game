@@ -18,8 +18,6 @@ export function Choice({ text, options, onFinish }) {
     }
   }).filter(Boolean)
 
-  console.log({ list })
-
   const handleClick = option => {
     if (option.action) dispatch(option.action)
     onFinish(option.id)

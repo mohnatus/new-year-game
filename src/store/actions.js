@@ -17,6 +17,7 @@ export const CHANGE_WINE = 'change_wine';
 export const ADD_PROMOCODE = 'add_promocode'
 export const ADD_LEARNING = 'add_learning'
 export const ADD_PUZZLE = 'add_puzzle'
+export const SET_STAGE_DATA = 'set_stage_data'
 
 export const RESET_STATE = 'reset_state';
 export const RESET_DAY = 'reset_day';
@@ -142,6 +143,13 @@ export function addPuzzle(name) {
 	return {
 		type: ADD_PUZZLE,
 		payload: name
+	}
+}
+
+export function setStageData(key, value) {
+	return {
+		type: SET_STAGE_DATA,
+		payload: { key, value }
 	}
 }
 

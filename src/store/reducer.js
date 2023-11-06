@@ -21,6 +21,7 @@ import {
 	ADD_LEARNING,
 	ADD_PUZZLE,
 	ADD_CIDER,
+	SET_STAGE_DATA,
 } from './actions';
 import { defaultState } from './constants';
 
@@ -176,6 +177,17 @@ export const reducer = (state = defaultState, action) => {
 			return {
 				...state,
 				puzzles: [...state.puzzles, action.payload]
+			}
+
+		case SET_STAGE_DATA:
+			const { key, value } = action.payload || {}
+			if (!key) return state;
+			return {
+				...state,
+				stages: {
+					...state.stages,
+					[key]: value
+				}
 			}
 
 		default:

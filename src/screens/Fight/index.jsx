@@ -10,6 +10,10 @@ export function Fight({ magic, onFinish }) {
   const [tries, setTries] = useState(0)
   const [inactive, setInactive] = useState(false)
 
+
+  const magicCount = state.magic[magic]
+  console.log({ magic, magicCount })
+
   const handleUseMagic = () => {
     killEnemies(3, magic)
   }
@@ -40,7 +44,7 @@ export function Fight({ magic, onFinish }) {
 
     <div>
       {started && !inactive ? <div>
-        <button disabled={state.magic[magic] > 0} onClick={handleUseMagic}>Использовать магию {magic}</button>
+        {magic && <button disabled={magicCount <= 0} onClick={handleUseMagic}>Использовать магию {magic}</button>}
         <button onClick={handleShot}>Стрелять</button>
       </div> : <div>
         {inactive ? <button onClick={start}>Попробовать еще раз</button> : <button onClick={start}>Начать сражение</button>}

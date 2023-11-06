@@ -8,7 +8,9 @@ const config = {
 		ctx.fillStyle = 'green';
 		if (object.lives <= 4) ctx.fillStyle = 'yellow';
 		if (object.lives <= 2) ctx.fillStyle = 'red';
-		
+
+		if (object.dying) ctx.fillStyle = 'pink'
+
 		ctx.fillRect(object.x, object.y, width, height);
 	},
 };

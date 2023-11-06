@@ -1,7 +1,7 @@
 import bulletConfig from './bullet';
-import { BULLET_SPEED, ENEMY_LIVES, ENEMY_SPEED, WAVES_COUNT, WAVES_PAUSE } from './constants';
+import { BULLET_SPEED, DYING_DURATION, ENEMY_LIVES, ENEMY_SPEED, WAVES_COUNT, WAVES_PAUSE } from './constants';
 import enemyConfig from './enemy';
-import { GameObject } from './gameObject';
+import { BulletObject, EnemyObject, GameObject } from './gameObject';
 import { getCoords, hasIntersection } from './utils';
 
 const canvas = document.getElementById('canvas');
@@ -140,8 +140,7 @@ function nextWave() {
 	let x = state.currentWave % 2 ? 25 : 0;
 	const wave = [];
 	while (x < width) {
-		const enemy = new GameObject(x, 0, 0, ENEMY_SPEED);
-		enemy.lives = ENEMY_LIVES;
+		const enemy = new EnemyObject(x, 0, 0, ENEMY_SPEED);
 		wave.push(enemy);
 		x += 70;
 	}
@@ -152,17 +151,14 @@ function nextWave() {
 
 export function killEnemies(count, effect) {
 	objects.enemies.slice(0, count).forEach((e) => {
-		e.effect = effect;
-		e.killing = 5;
+		e.die(effect)
 	});
 }
 
 export function shot() {
-	const bullet = new GameObject(
+	const bullet = new BulletObject(
 		Math.random() * width,
 		height,
-		Math.random() - 0.5,
-		BULLET_SPEED
 	);
 
 	objects.bullets.push(bullet);

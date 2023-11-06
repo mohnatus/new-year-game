@@ -1,19 +1,28 @@
 import {
 	addCider,
 	addMedicine,
+	changeGold,
 	changeHealth,
+	changeMagic,
 	changePears,
 	changeWine,
 	removeMedicine,
 } from '../store/actions';
+import { AIR, FIRE, GROUND, WATER } from './magic';
+
+export const STORY = 'stage/story';
+export const TREE = 'stage/tree';
+export const FIGHT = 'stage/fight';
+export const CHOICE = 'stage/choice';
+export const PUZZLE = 'stage/puzzle';
+export const SLEEPING = 'stage/sleeping';
 
 export const gameDays = [
 	// day 1
 	{
 		stages: [
 			{
-				id: 'start',
-				type: 'story',
+				type: STORY,
 				slides: [
 					{ text: 'Привет, герой' },
 					{ text: 'Ледяные гномы напали на королевство Котогавия' },
@@ -22,12 +31,10 @@ export const gameDays = [
 				],
 			},
 			{
-				id: 'tree',
-				type: 'tree',
+				type: TREE,
 			},
 			{
-				id: 'country',
-				type: 'story',
+				type: STORY,
 				slides: [
 					{ text: 'Герой продолжил свой путь' },
 					{ text: 'Он увидел деревню' },
@@ -41,15 +48,14 @@ export const gameDays = [
 				],
 			},
 		],
-		ending: 'sleeping',
+		ending: SLEEPING,
 	},
 
 	// day 2
 	{
 		stages: [
 			{
-				id: 'morning',
-				type: 'story',
+				type: STORY,
 				slides: [
 					{ text: 'Утром герой проснулся' },
 					{
@@ -59,19 +65,17 @@ export const gameDays = [
 				],
 			},
 			{
-				id: 'fight',
-				type: 'fight',
+				id: 'ratsFight',
+				type: FIGHT,
 			},
 			{
-				id: 'afterFight1',
-				type: 'story',
-				checkDayData: (dayData) => dayData.fight === 'win',
+				type: STORY,
+				checkState: (state) => state.stages.ratsFight === 'win',
 				slides: [{ text: 'Победив крыс, герой продолжил свой путь' }],
 			},
 			{
-				id: 'afterFight2',
-				type: 'story',
-				check: (dayData) => dayData.fight === 'lose',
+				type: STORY,
+				checkState: (state) => state.stages.ratsFight === 'lose',
 				slides: [
 					{
 						text: 'Сбежав от крыс, герой продолжил свой путь',
@@ -79,12 +83,10 @@ export const gameDays = [
 				],
 			},
 			{
-				id: 'tree',
-				type: 'tree',
+				type: TREE,
 			},
 			{
-				id: 'evening',
-				type: 'story',
+				type: STORY,
 				slides: [
 					{ text: 'Подкрепившись, герой продолжил свой путь. ' },
 					{ text: 'И шел до позднего вечера' },
@@ -97,17 +99,14 @@ export const gameDays = [
 	{
 		stages: [
 			{
-				id: 'morning',
-				type: 'story',
+				type: STORY,
 				slides: [{ text: 'На следующий день герой снова шел' }],
 			},
 			{
-				id: 'tree',
-				type: 'tree',
+				type: TREE,
 			},
 			{
-				id: 'oldman',
-				type: 'story',
+				type: STORY,
 				slides: [
 					{
 						text: 'Недалеко от дерева герой встретил старого мужчину',
@@ -116,8 +115,8 @@ export const gameDays = [
 				],
 			},
 			{
-				id: 'choice',
-				type: 'choice',
+				id: 'oldman',
+				type: CHOICE,
 				text: 'Дай грушу, пожалуйста',
 				options: [
 					{
@@ -130,9 +129,8 @@ export const gameDays = [
 				],
 			},
 			{
-				id: 'agree',
-				checkDayData: (dayData) => dayData.choice === 'agree',
-				type: 'story',
+				checkState: (state) => state.oldman === 'agree',
+				type: STORY,
 				slides: [
 					{ text: 'спасибо за помощь' },
 					{
@@ -143,14 +141,12 @@ export const gameDays = [
 				],
 			},
 			{
-				id: 'deny',
-				checkDayData: (dayData) => dayData.choice === 'deny',
-				type: 'story',
+				checkState: (state) => state.choice === 'deny',
+				type: STORY,
 				slides: [{ text: 'старик расстроился и ушел' }],
 			},
 			{
-				id: 'insect',
-				type: 'story',
+				type: STORY,
 				slides: [
 					{ text: 'герой шел-шел' },
 					{ text: 'и вдруг почувствовал сильнейший укус' },
@@ -160,8 +156,8 @@ export const gameDays = [
 				],
 			},
 			{
-				id: 'bite',
-				type: 'choice',
+				id: 'insect',
+				type: CHOICE,
 				text: 'Нужно что-то сделать',
 				options: [
 					{
@@ -178,8 +174,7 @@ export const gameDays = [
 				],
 			},
 			{
-				id: 'evening',
-				type: 'story',
+				type: STORY,
 				slides: [
 					{ text: 'немного отдохнув, герой снова собрался в путь' },
 					{ text: 'Герой шел до позднего вечера' },
@@ -192,17 +187,14 @@ export const gameDays = [
 	{
 		stages: [
 			{
-				id: 'morning',
-				type: 'story',
+				type: STORY,
 				slides: [{ text: 'утро 4 дня' }],
 			},
 			{
-				id: 'tree',
-				type: 'tree',
+				type: TREE,
 			},
 			{
-				id: 'forest',
-				type: 'story',
+				type: STORY,
 				slides: [
 					{ text: 'Герой зашел в синий лес' },
 					{
@@ -215,13 +207,12 @@ export const gameDays = [
 				],
 			},
 			{
-				id: 'puzzle',
-				type: 'puzzle',
-        magic: 'fire'
+				id: 'blueForestPuzzle',
+				type: PUZZLE,
+				magic: FIRE,
 			},
 			{
-				id: 'evening',
-				type: 'story',
+				type: STORY,
 				slides: [
 					{ text: 'Преодолев препятствие, герой продолжил путь' },
 					{ text: 'И шел спокойно по лесу до самого вечера' },
@@ -234,8 +225,7 @@ export const gameDays = [
 	{
 		stages: [
 			{
-				id: 'dwarfs',
-				type: 'story',
+				type: STORY,
 				slides: [
 					{ text: 'Утром герой проснулся от шума' },
 					{ text: 'Его окружила толпа маленьких лесных гномов' },
@@ -246,22 +236,19 @@ export const gameDays = [
 				],
 			},
 			{
-				id: 'fight',
-				type: 'fight',
-        magic: 'fire'
+				id: 'dwarfsFight',
+				type: FIGHT,
+				magic: FIRE,
 			},
 			{
-				id: 'road',
-				type: 'story',
+				type: STORY,
 				slides: [{ text: 'Герой продолжил путь' }],
 			},
 			{
-				id: 'tree',
-				type: 'tree',
+				type: TREE,
 			},
 			{
-				id: 'evening',
-				type: 'story',
+				type: STORY,
 				slides: [
 					{ text: 'Остаток дня прошел спокойно' },
 					{ text: 'Герой остановился на ночлег в лесу' },
@@ -275,8 +262,7 @@ export const gameDays = [
 	{
 		stages: [
 			{
-				id: 'gopher',
-				type: 'story',
+				type: STORY,
 				slides: [
 					{ text: 'Утром герой наткнулся на грушевого суслика' },
 					{ text: 'Он знал, что эти звери любят груши' },
@@ -289,8 +275,8 @@ export const gameDays = [
 				],
 			},
 			{
-				id: 'choice',
-				type: 'choice',
+				id: 'gopher',
+				type: CHOICE,
 				text: 'Пойти за сусликом?',
 				options: [
 					{ id: 'agree', text: 'Пойти' },
@@ -298,9 +284,8 @@ export const gameDays = [
 				],
 			},
 			{
-				id: 'deny',
-				checkDayData: (dayData) => dayData.choice === 'deny',
-				type: 'story',
+				checkState: (state) => state.gopher === 'deny',
+				type: STORY,
 				slides: [
 					{ text: 'Благоразумный герой решил не рисковать' },
 					{ text: 'Весь день он спокойно брел по лесу' },
@@ -313,9 +298,8 @@ export const gameDays = [
 				],
 			},
 			{
-				id: 'burrow',
-				checkDayData: (dayData) => dayData.choice === 'agree',
-				type: 'story',
+				checkState: (state) => state.gopher === 'agree',
+				type: STORY,
 				slides: [
 					{
 						text: 'герой нашел нору сусликов, а в ней кучу груш ',
@@ -328,14 +312,14 @@ export const gameDays = [
 				],
 			},
 			{
-				id: 'fight',
-				checkDayData: (dayData) => dayData.choice === 'agree',
-				type: 'fight',
+				id: 'gopherFight',
+				checkState: (state) => state.gopher === 'agree',
+				type: FIGHT,
 			},
 			{
 				id: 'evening',
-				checkDayData: (dayData) => dayData.choice === 'agree',
-				type: 'story',
+				checkState: (state) => state.gopher === 'agree',
+				type: STORY,
 				slides: [
 					{
 						text: 'герой поспешил убраться подальше от логова сусликов',
@@ -351,8 +335,7 @@ export const gameDays = [
 	{
 		stages: [
 			{
-				id: 'morning',
-				type: 'story',
+				type: STORY,
 				slides: [
 					{
 						text: 'наконец спустя несколько дней герой выбрался из Синего леса',
@@ -360,20 +343,18 @@ export const gameDays = [
 				],
 			},
 			{
-				id: 'tree',
-				type: 'tree',
+				type: TREE,
 			},
 			{
-				id: 'kajit',
-				type: 'story',
+				type: STORY,
 				slides: [
 					{ text: 'по пути герой  встретил подозрительного каджита' },
 					{ text: 'Он предложил ему купить сидр за несколько груш ' },
 				],
 			},
 			{
-				id: 'choice',
-				type: 'choice',
+				id: 'kajit',
+				type: CHOICE,
 				text: 'Купишь сидр?',
 				options: [
 					{
@@ -386,9 +367,8 @@ export const gameDays = [
 				],
 			},
 			{
-				id: 'cider',
-				checkDayData: (dayData) => dayData.choice === 'agree',
-				type: 'story',
+				checkState: (state) => state.kajit === 'agree',
+				type: STORY,
 				slides: [
 					{
 						text: 'Каджит отдал герою сидр',
@@ -399,9 +379,8 @@ export const gameDays = [
 				],
 			},
 			{
-				id: 'robbery',
-				checkDayData: (dayData) => dayData.choice === 'deny',
-				type: 'story',
+				checkState: (state) => state.kajit === 'deny',
+				type: STORY,
 				slides: [
 					{ text: 'Каджит выглядел расстроенным' },
 					{
@@ -421,8 +400,7 @@ export const gameDays = [
 	{
 		stages: [
 			{
-				id: 'city',
-				type: 'story',
+				type: STORY,
 				slides: [
 					{
 						text: 'На следующий день герой пришел в большой город Котявск',
@@ -433,11 +411,46 @@ export const gameDays = [
 					},
 				],
 			},
-      {
-        id: 'magic',
-        type: 'choice',
+			{
+				id: 'wizard',
+				type: CHOICE,
+				text: '1 золотой за заклинание, деньги вперед',
+				options: [
+					{
+						id: 'agree',
+						text: 'Заплатить',
+						checkState: (state) => state.gold >= 1,
+						action: changeGold(-1),
+					},
+					{ id: 'deny', text: 'Отказаться' },
+				],
+			},
+			{
+				id: 'wizardMagic',
+				checkState: state => state.wizard === 'agree',
+				type: CHOICE,
+				text: 'Какое заклинание взять',
+				options: [
+					{ id: 'fire', text: 'огонь', action: changeMagic(FIRE, 1) },
+					{ id: 'water', text: 'вода', action: changeMagic(WATER, 1) },
+					{ id: 'air', text: 'воздух', action: changeMagic(AIR, 1) },
+					{ id: 'ground', text: 'земля', action: changeMagic(GROUND, 1) },
+					{ id: 'refund', text: 'отказаться', action: changeGold(1) }
+				],
+			},
 
-      }
+			{
+				checkState: state => state.wizardMagic !== 'refund',
+				type: STORY,
+
+			},
+			{
+				id: 'hotel',
+				type: STORY,
+				slides: [
+					{ text: 'После волшебника герой пошел искать гостиницу'}
+				]
+			}
 		],
 		ending: 'sleeping',
 	},

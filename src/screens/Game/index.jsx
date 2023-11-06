@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppState, finishDay } from '../../store';
 
-import { Day } from '../../days';
+import { Day } from '../Day'
 import { Info } from '../../components/Info'
 import { FinishDay } from '../../screens/FinishDay'
 

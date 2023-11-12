@@ -21,7 +21,7 @@ export function Story({ slides, bg, nextText = 'Дальше', onFinish }) {
   }, [element, dispatch, isFinished, nextIndex, onFinish])
 
 
-  return <div className={s.Story} data-bg={element.bg || bg}>
+  return <div className={[s.Story, 'fullscreen', 'touchable'].join(' ')} data-bg={element.bg || bg}>
     <Text text={element.text} next={handleNext} nextText={element.nextText || nextText} />
   </div>
 }

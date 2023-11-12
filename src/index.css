@@ -36,3 +36,46 @@
 
 	pointer-events: none;
 }
+
+.fullscreen {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 2;
+}
+
+.touchable {
+	pointer-events: all;
+}
+
+[data-bg] {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+[data-bg='top'] {
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+[data-bg='kingdom'] {
+	background-image: url(./assets/kingdom.jpeg);
+}
+
+[data-bg='road'] {
+	background-image: url(./assets/road.jpeg);
+}
+
+[data-bg='country'] {
+	background-image: url(./assets/country.jpeg);
+}
+
+[data-bg='oldman'] {
+	background-image: url(./assets/oldman.jpeg);
+}
+
+[data-bg='insect'] {
+	background-image: url(./assets/insect.jpeg);
+}

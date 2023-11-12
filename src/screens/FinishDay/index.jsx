@@ -1,3 +1,4 @@
+import { Paper } from "../../components/Paper";
 import { gameDay } from "../../data/gameDay";
 import { nextDay, useAppDispatch, useAppState } from "../../store"
 
@@ -12,15 +13,12 @@ export function FinishDay() {
   const handleNextDay = () => {
     dispatch(nextDay())
   }
+
+  const actions = [
+      isNextDayAvailable ? { text: 'Перейти к следующему', onClick: handleNextDay} : {text: 'Ждите завтра'}
+    ]
+
   return <div className={s.Finish}>
-    <div className={s.Container}>
-      <div className={s.Bg} />
-      <div className={s.Content}>
-        Очередной день путешествия завершен.
-        {isNextDayAvailable ? <button onClick={handleNextDay}>Перейти к следующему</button> : <div>Ждите завтра</div>}
-      </div>
-
-    </div>
-
+    <Paper text='Очередной день путешествия завершен.' actions={actions} />
   </div>
 }

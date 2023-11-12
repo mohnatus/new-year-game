@@ -1,6 +1,8 @@
 import { useAppDispatch, useAppState } from "../../store"
 
-export function Choice({ text, options, onFinish }) {
+import s from './style.module.css'
+
+export function Choice({ bg, text, options, onFinish }) {
   const dispatch = useAppDispatch()
   const state = useAppState()
 
@@ -22,7 +24,7 @@ export function Choice({ text, options, onFinish }) {
     if (option.action) dispatch(option.action)
     onFinish(option.id)
   }
-  return <div>
+  return <div className={[s.Choice, 'fullscreen', 'touchable'].join(' ')} data-bg={bg}>
     <div>{text}</div>
     <div>
       {list.map(option => <button key={option.id}

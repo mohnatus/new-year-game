@@ -122,8 +122,10 @@ export const gameDays = [
 				type: STORY,
 				bg: 'road',
 				slides: [
-					{ text: 'Он шел и шел, пока не наткнулся на грушевое дерево' }
-				]
+					{
+						text: 'Он шел и шел, пока не наткнулся на грушевое дерево',
+					},
+				],
 			},
 			{
 				type: TREE,
@@ -139,18 +141,23 @@ export const gameDays = [
 		],
 	},
 
-	// 16 dec
+	// 3 day - 16 dec
 	{
 		stages: [
 			{
 				type: STORY,
-				slides: [{ text: 'На следующий день герой снова шел' }],
+				bg: 'road',
+				slides: [
+					{ text: 'На следующий день герой снова шел' },
+					{ text: 'Он увидел грушевое дерево' },
+				],
 			},
 			{
 				type: TREE,
 			},
 			{
 				type: STORY,
+				bg: 'oldman',
 				slides: [
 					{
 						text: 'Недалеко от дерева герой встретил старого мужчину',
@@ -161,6 +168,7 @@ export const gameDays = [
 			{
 				id: 'oldman',
 				type: CHOICE,
+				bg: 'oldman',
 				text: 'Дай грушу, пожалуйста',
 				options: [
 					{
@@ -175,6 +183,7 @@ export const gameDays = [
 			{
 				checkState: (state) => state.stages.oldman === AGREE,
 				type: STORY,
+				bg: 'oldman',
 				slides: [
 					{ text: 'спасибо за помощь' },
 					{
@@ -187,21 +196,29 @@ export const gameDays = [
 			{
 				checkState: (state) => state.stages.oldman === DENY,
 				type: STORY,
+				bg: 'oldman',
 				slides: [{ text: 'старик расстроился и ушел' }],
 			},
 			{
 				type: STORY,
+				bg: 'road',
 				slides: [
 					{ text: 'герой шел-шел' },
 					{ text: 'и вдруг почувствовал сильнейший укус' },
+				],
+			},
+			{
+				type: STORY,
+				bg: 'insect',
+				slides: [
 					{ text: 'это было страшная гигантская божья коровка' },
 					{ text: 'его рука опухла' },
-					{ text: 'нужно что-то делать' },
 				],
 			},
 			{
 				id: 'insect',
 				type: CHOICE,
+				bg: 'insect',
 				text: 'Нужно что-то сделать',
 				options: [
 					{
@@ -219,6 +236,7 @@ export const gameDays = [
 			},
 			{
 				type: STORY,
+				bg: 'road',
 				slides: [
 					{ text: 'немного отдохнув, герой снова собрался в путь' },
 					{ text: 'Герой шел до позднего вечера' },

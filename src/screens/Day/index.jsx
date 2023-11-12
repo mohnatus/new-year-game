@@ -65,8 +65,8 @@ export function Day({ index }) {
   if (element?.type === STORY) return <Story key={stageIndex} bg={element.bg} slides={element.slides} onFinish={handleNextStage} />
   if (element?.type === TREE) return <PearTree onFinish={handleNextStage} />
   if (element?.type === FIGHT) return <Fight magic={element.magic} onFinish={handleNextStage} />
-  if (element?.type === CHOICE) return <Choice text={element.text} options={element.options} onFinish={handleNextStage} />
-  if (element?.type === PUZZLE) return <Puzzle magic={element.magic} onFinish={handleNextStage} />
+  if (element?.type === CHOICE) return <Choice bg={element.bg} text={element.text} options={element.options} onFinish={handleNextStage} />
+  if (element?.type === PUZZLE) return <Puzzle bg={element.bg} magic={element.magic} onFinish={handleNextStage} />
 
   if (day.ending === SLEEPING) return <Sleeping onFinish={handleFinishDay} />
   return <Going onFinish={handleFinishDay} />

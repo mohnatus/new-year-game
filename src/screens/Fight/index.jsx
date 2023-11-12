@@ -69,11 +69,11 @@ export function Fight({ magic, onFinish }) {
     {createPortal(<>
       {hasLearning && <div className={s.Learning}>
         {!hasSlingLearning && <Story bg="top" slides={learnings.fightSling} onFinish={() => dispatch(addLearning('fightSling'))} />}
-      {hasGunLearning && <Story bg="top" slides={learnings.fightGun} onFinish={() => dispatch(addLearning('fightGun'))} />}
-      {hasPowerLearning && <Story bg="top" slides={learnings.fightPower} onFinish={() => dispatch(addLearning('fightPower'))} />}
-      {hasMagicLearning && <Story bg="top" slides={learnings.fightMagic} onFinish={() => dispatch(addLearning('fightMagic'))} />}
+        {hasGunLearning && <Story bg="top" slides={learnings.fightGun} onFinish={() => dispatch(addLearning('fightGun'))} />}
+        {hasPowerLearning && <Story bg="top" slides={learnings.fightPower} onFinish={() => dispatch(addLearning('fightPower'))} />}
+        {hasMagicLearning && <Story bg="top" slides={learnings.fightMagic} onFinish={() => dispatch(addLearning('fightMagic'))} />}
 
-        </div>}
+      </div>}
 
       {started && !inactive && <div className={s.Controls}>
         <div>

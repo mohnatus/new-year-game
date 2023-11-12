@@ -245,18 +245,28 @@ export const gameDays = [
 		],
 	},
 
-	// 17 dec
+	// 4 day - 17 dec
 	{
 		stages: [
 			{
 				type: STORY,
-				slides: [{ text: 'утро 4 дня' }],
+				bg: 'road',
+				slides: [
+					{ text: 'Шел четвертый день пути' },
+					{
+						text: 'Герой был полон решимости спасти казну и принцессу',
+					},
+					{
+						text: 'Он шел-шел и увидел перед собой грушевое дерево',
+					},
+				],
 			},
 			{
 				type: TREE,
 			},
 			{
 				type: STORY,
+				bg: 'forest',
 				slides: [
 					{ text: 'Герой зашел в синий лес' },
 					{
@@ -271,10 +281,12 @@ export const gameDays = [
 			{
 				id: 'blueForestPuzzle',
 				type: PUZZLE,
+				bg: 'forest',
 				magic: FIRE,
 			},
 			{
 				type: STORY,
+				bg: 'forest',
 				slides: [
 					{ text: 'Преодолев препятствие, герой продолжил путь' },
 					{ text: 'И шел спокойно по лесу до самого вечера' },
@@ -283,11 +295,12 @@ export const gameDays = [
 		],
 	},
 
-	// 18 dec
+	// 5 day - 18 dec
 	{
 		stages: [
 			{
 				type: STORY,
+				bg: 'forest-dwarf',
 				slides: [
 					{ text: 'Утром герой проснулся от шума' },
 					{ text: 'Его окружила толпа маленьких лесных гномов' },
@@ -304,27 +317,38 @@ export const gameDays = [
 			},
 			{
 				type: STORY,
-				slides: [{ text: 'Герой продолжил путь' }],
+				bg: 'forest',
+				slides: [
+					{ text: 'Герой продолжил путь' },
+					{
+						text: 'Посреди леса он нашел грушевое дерево',
+					},
+					{
+						text: 'Оно было маленькое и чахлое, но с плодами',
+					},
+				],
 			},
 			{
 				type: TREE,
 			},
 			{
 				type: STORY,
+				bg: 'forest',
 				slides: [
 					{ text: 'Остаток дня прошел спокойно' },
 					{ text: 'Герой остановился на ночлег в лесу' },
 				],
 			},
 		],
-		engind: 'sleeping',
+		ending: SLEEPING
 	},
 
-	// 19 dec
+	// 6 day - 19 dec
 	{
 		stages: [
 			{
 				type: STORY,
+				bg: 'gopher',
 				slides: [
 					{ text: 'Утром герой наткнулся на грушевого суслика' },
 					{ text: 'Он знал, что эти звери любят груши' },
@@ -339,6 +363,7 @@ export const gameDays = [
 			{
 				id: 'gopher',
 				type: CHOICE,
+				bg: 'gopher',
 				text: 'Пойти за сусликом?',
 				options: [
 					{ id: AGREE, text: 'Пойти' },
@@ -348,6 +373,7 @@ export const gameDays = [
 			{
 				checkState: (state) => state.stages.gopher === DENY,
 				type: STORY,
+				bg: 'forest',
 				slides: [
 					{ text: 'Благоразумный герой решил не рисковать' },
 					{ text: 'Весь день он спокойно брел по лесу' },
@@ -362,6 +388,7 @@ export const gameDays = [
 			{
 				checkState: (state) => state.stages.gopher === AGREE,
 				type: STORY,
+				bg: 'gopher',
 				slides: [
 					{
 						text: 'герой нашел нору сусликов, а в ней кучу груш ',
@@ -380,12 +407,14 @@ export const gameDays = [
 			},
 			{
 				id: 'gopherFight',
+				bg: 'gopher',
 				checkState: (state) => state.stages.gopher === AGREE,
 				type: FIGHT,
 				magic: WATER,
 			},
 			{
 				id: 'evening',
+				bg: 'forest',
 				checkState: (state) => state.stages.gopher === AGREE,
 				type: STORY,
 				slides: [
@@ -396,7 +425,7 @@ export const gameDays = [
 				],
 			},
 		],
-		ending: 'sleeping',
+		ending: SLEEPING,
 	},
 
 	// 20 dec

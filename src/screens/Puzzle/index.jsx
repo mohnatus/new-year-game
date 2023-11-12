@@ -3,7 +3,9 @@ import { usePuzzle } from "../../hooks/usePuzzle"
 import { changePears, useAppDispatch } from "../../store"
 import { changeGold, changeMagic, changeWine } from "../../store/actions"
 
-export function Puzzle({ magic, onFinish }) {
+import s from './style.module.css'
+
+export function Puzzle({ bg, magic, onFinish }) {
   const dispatch = useAppDispatch()
   const puzzle = usePuzzle()
 
@@ -42,7 +44,7 @@ export function Puzzle({ magic, onFinish }) {
     onFinish('magic');
   }
 
-  return <div>
+  return <div className={[s.Puzzle, 'fullscreen', 'touchable'].join(' ')} data-bg={bg}>
     <div>{puzzle.text}</div>
     <div>
       {puzzle.variants.map(variant => (<button key={variant.id}

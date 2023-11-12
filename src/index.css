@@ -79,3 +79,15 @@
 [data-bg='insect'] {
 	background-image: url(./assets/insect.jpeg);
 }
+
+[data-bg='forest'] {
+	background-image: url(./assets/forest.jpeg);
+}
+
+[data-bg='forest-dwarf'] {
+	background-image: url(./assets/forest-dwarf.jpeg);
+}
+
+[data-bg='gopher'] {
+	background-image: url(./assets/gopher.jpeg);
+}

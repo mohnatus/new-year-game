@@ -5,5 +5,9 @@ export const promocodes = {
     title: 'Рогатка',
     description: 'Описание рогатки',
     action: addSlingshot()
+  },
+  'gun': {
+    title: 'Ружье',
+    description: 'Описание ружья',
   }
 }

@@ -1,7 +1,11 @@
-export function Text({ text, bg, next, nextText = 'Дальше' }) {
-  return <div>
-    <div>{text}</div>
+import s from './style.module.css'
 
-    <button onClick={next}>{nextText}</button>
+export function Text({ text, next, nextText = 'Дальше' }) {
+  return <div className={s.Text}>
+    <div className={s.Bg} />
+    <div className={s.Content}>
+      <div>{text}</div>
+      <button className={s.Next} onClick={next}>{nextText}</button>
+    </div>
   </div>
 }

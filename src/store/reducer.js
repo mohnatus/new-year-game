@@ -20,8 +20,13 @@ import {
 	ADD_PROMOCODE,
 	ADD_LEARNING,
 	ADD_PUZZLE,
-	ADD_CIDER,
 	SET_STAGE_DATA,
+	FILL_HEALTH,
+	LOSE_HEALTH,
+	BUY_ARMOR,
+	ADD_GUN,
+	CHANGE_CIDER,
+	APPLY_PET,
 } from './actions';
 import { defaultState } from './constants';
 
@@ -33,10 +38,10 @@ export const reducer = (state = defaultState, action) => {
 			return defaultState;
 
 		case RESET_DAY:
-				return {
-					...state,
-					finishedDay: state.day - 1
-				};
+			return {
+				...state,
+				finishedDay: state.day - 1,
+			};
 
 		case CHANGE_DAY:
 			return {
@@ -102,6 +107,12 @@ export const reducer = (state = defaultState, action) => {
 				slingshot: true,
 			};
 
+		case ADD_GUN:
+			return {
+				...state,
+				gun: true,
+			};
+
 		case ADD_MEDICINE:
 			return {
 				...state,
@@ -120,16 +131,30 @@ export const reducer = (state = defaultState, action) => {
 				health: state.health + action.payload,
 			};
 
+		case FILL_HEALTH:
+			return {
+				...state,
+				health: 3,
+				power: true,
+			};
+
+		case LOSE_HEALTH:
+			return {
+				...state,
+				health: 1,
+				power: false,
+			};
+
 		case APPLY_POWER:
 			return {
 				...state,
 				power: false,
 			};
 
-		case ADD_CIDER:
+		case CHANGE_CIDER:
 			return {
 				...state,
-				cider: true,
+				cider: state.cider + action.payloayd,
 			};
 
 		case CHANGE_MAGIC:
@@ -170,24 +195,39 @@ export const reducer = (state = defaultState, action) => {
 		case ADD_LEARNING:
 			return {
 				...state,
-				learning: [...state.learning, action.payload]
-			}
+				learning: [...state.learning, action.payload],
+			};
 
 		case ADD_PUZZLE:
 			return {
 				...state,
-				puzzles: [...state.puzzles, action.payload]
-			}
+				puzzles: [...state.puzzles, action.payload],
+			};
 
 		case SET_STAGE_DATA:
-			const { key, value } = action.payload || {}
+			const { key, value } = action.payload || {};
 			if (!key) return state;
 			return {
 				...state,
 				stages: {
 					...state.stages,
-					[key]: value
-				}
+					[key]: value,
+				},
+			};
+
+		case BUY_ARMOR:
+			return {
+				...state,
+				armor: action.payload.type,
+				gold: state.gold - action.payload.count
+
+
+			}
+
+		case APPLY_PET:
+			return {
+				...state,
+				petUsed: true
 			}
 
 		default:

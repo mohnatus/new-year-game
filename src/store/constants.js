@@ -1,3 +1,5 @@
+import { AIR, FIRE, GROUND, WATER } from "../constants/magic";
+
 export const defaultState = {
 	day: 0,
 	stage: 0,
@@ -9,19 +11,22 @@ export const defaultState = {
 
 	gold: 0,
 	wine: 0,
+	cider: 0,
 
 	slingshot: false,
+	gun: false,
 	medicine: false,
-	cider: false,
+	armor: false,
 
 	companion: false,
 	pet: false,
+	petUsed: false,
 
 	magic: {
-		water: 0,
-		fire: 0,
-		air: 0,
-		ground: 0
+		[WATER]: 0,
+		[FIRE]: 0,
+		[AIR]: 0,
+		[GROUND]: 0
 	},
 
 	wheel: null,

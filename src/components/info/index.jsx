@@ -1,8 +1,11 @@
 import { useCallback, useState } from "react";
-import { addSlingshot, eatPear, resetState, useAppDispatch, useAppState } from "../../store";
+import { eatPear, resetState, useAppDispatch, useAppState } from "../../store";
 import { changeDay, changeGold, changeHealth, changePears, changeWine, resetDay } from "../../store/actions";
 import { Wheel } from "../Wheel";
-import { Promocode } from "../../screens/Promocode";
+import { Promocode } from "../Promocode";
+import { AIR, FIRE, GROUND, WATER } from "../../constants/magic";
+
+import s from './style.module.css'
 
 export function Info() {
   const state = useAppState()
@@ -18,18 +21,7 @@ export function Info() {
     dispatch(eatPear())
   }
 
-  const handlePromocode = (e) => {
-    e.preventDefault();
-
-    const promocode = e.target.elements.promocode
-
-    if (promocode.value.toLowerCase().trim() === 'sling') {
-      dispatch(addSlingshot())
-      promocode.value = ''
-    }
-  }
-
-  return <div>
+  return <div className={s.Info}>
     <Wheel />
 
     <div>
@@ -65,13 +57,13 @@ export function Info() {
     </div>
     <div>Магия:
 
-      water {state.magic.water}
+      water {state.magic[WATER]}
       <br />
-      air {state.magic.air}
+      air {state.magic[AIR]}
       <br />
-      fire {state.magic.fire}
+      fire {state.magic[FIRE]}
       <br />
-      ground {state.magic.ground}
+      ground {state.magic[GROUND]}
       <br />
     </div>
     <div>

@@ -1,20 +1,24 @@
-import bulletConfig from './bullet';
-import { BULLET_SPEED, DYING_DURATION, ENEMY_LIVES, ENEMY_SPEED, WAVES_COUNT, WAVES_PAUSE } from './constants';
-import enemyConfig from './enemy';
-import { BulletObject, EnemyObject, GameObject } from './gameObject';
+import { STATUS } from '../../constants/fight';
+import { bulletConfig, BulletObject } from './objects/bullet';
+import { ENEMY_SPEED, WAVES_COUNT, WAVES_PAUSE } from './constants';
+import { enemyConfig, EnemyObject } from './objects/enemy';
 import { getCoords, hasIntersection } from './utils';
+import { Hero } from './objects/hero';
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-const width = canvas.width;
-const height = canvas.height;
+let width = canvas.width;
+let height = canvas.height;
+
+const hero = new Hero();
+let moveDirection = 0;
 
 const settings = {
 	waves: WAVES_COUNT,
 	enemy: '',
 	bg: '',
 	bullet: '',
-	damage: 2
+	damage: 2,
 };
 
 const objects = {
@@ -25,9 +29,6 @@ const objects = {
 const state = {
 	currentWave: 0,
 };
-
-export const WIN = 'status/win'
-export const LOSE = 'status/lose'
 
 function clearCanvas() {
 	ctx.clearRect(0, 0, width, height);
@@ -65,13 +66,16 @@ function handleObjects() {
 
 function moveObjects() {
 	objects.enemies.forEach((enemy) => {
-		if (enemy.dying) return;
 		enemy.move();
 	});
 	objects.bullets.forEach((bullet) => {
-		if (bullet.touched) return;
 		bullet.move();
 	});
+	if (moveDirection === -1) {
+		hero.left();
+	} else if (moveDirection === 1) {
+		hero.right(width);
+	}
 }
 
 function handleIntersections() {
@@ -85,7 +89,7 @@ function handleIntersections() {
 			const enemyCoords = getCoords(enemyConfig, enemy);
 			if (hasIntersection(bulletCoords, enemyCoords)) {
 				bullet.touched = true;
-				enemy.lives = enemy.lives - settings.damage;
+				enemy.hit(settings.damage);
 				break;
 			}
 		}
@@ -106,6 +110,8 @@ function hasBreakthrought() {
 function draw() {
 	clearCanvas();
 
+	hero.draw(ctx);
+
 	objects.enemies.forEach((enemy) => {
 		enemyConfig.draw(ctx, enemy);
 	});
@@ -120,14 +126,14 @@ function tick() {
 	handleObjects();
 
 	if (state.currentWave === settings.waves && objects.enemies.length === 0) {
-		return WIN;
+		return STATUS.win;
 	}
 
 	moveObjects();
 	const isDefenceBroken = hasBreakthrought();
 
 	if (isDefenceBroken) {
-		return LOSE;
+		return STATUS.lose;
 	}
 
 	draw();
@@ -137,12 +143,15 @@ function tick() {
 function nextWave() {
 	if (state.currentWave >= settings.waves) return;
 
-	let x = state.currentWave % 2 ? 25 : 0;
+	let count = state.currentWave % 2 ? 5 : 4;
+	let step = width / count;
+	let i = 0;
 	const wave = [];
-	while (x < width) {
+	while (i < count) {
+		const x = step / 2 + i * step;
 		const enemy = new EnemyObject(x, 0, 0, ENEMY_SPEED);
 		wave.push(enemy);
-		x += 70;
+		i++;
 	}
 
 	objects.enemies.push(...wave);
@@ -151,20 +160,61 @@ function nextWave() {
 
 export function killEnemies(count, effect) {
 	objects.enemies.slice(0, count).forEach((e) => {
-		e.die(effect)
+		e.die(effect);
 	});
 }
 
 export function shot() {
-	const bullet = new BulletObject(
-		Math.random() * width,
-		height,
-	);
-
+	const bullet = new BulletObject(hero.x, hero.y);
 	objects.bullets.push(bullet);
 }
 
+export function move(direction) {
+	moveDirection = direction;
+}
+
+function keydownHandler(e) {
+	switch (e.code) {
+		case 'ArrowLeft':
+			move(-1);
+			break;
+		case 'ArrowRight':
+			move(1);
+			break;
+		case 'Space':
+		case 'Enter':
+			shot();
+			break;
+		default:
+			break;
+	}
+}
+
+function keyupHandler(e) {
+	switch (e.code) {
+		case 'ArrowLeft':
+			if (moveDirection === -1) move(0)
+			break
+		case 'ArrowRight':
+			if (moveDirection === 1) move(0)
+			break;
+		default:
+			break;
+	}
+}
+
 export function init(onFinish, localSettings = {}) {
+	const rect = canvas.getBoundingClientRect();
+	width = rect.width;
+	height = rect.height;
+	canvas.width = width;
+	canvas.height = height;
+
+	hero.set(width / 2, height - 50);
+
+	document.addEventListener('keydown', keydownHandler);
+	document.addEventListener('keyup', keyupHandler);
+
 	clearCanvas();
 	resetState();
 
@@ -174,7 +224,10 @@ export function init(onFinish, localSettings = {}) {
 		const currentMoment = performance.now();
 
 		if (state.currentWave < settings.waves) {
-			if (state.currentWave === 0 || currentMoment - moment >= WAVES_PAUSE) {
+			if (
+				state.currentWave === 0 ||
+				currentMoment - moment >= WAVES_PAUSE
+			) {
 				moment = currentMoment;
 				nextWave();
 			}

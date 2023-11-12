@@ -3,11 +3,10 @@ import { useIterator } from "../../hooks/useIterator";
 import { Text } from "../Text";
 import { useAppDispatch } from "../../store";
 
+import s from './style.module.css'
 
-export function Story({ slides, nextText = 'Дальше', onFinish }) {
+export function Story({ slides, bg, nextText = 'Дальше', onFinish }) {
   const dispatch = useAppDispatch()
-
-  console.log({ slides })
 
   const { element, next: nextIndex, isFinished } = useIterator(slides)
 
@@ -22,7 +21,7 @@ export function Story({ slides, nextText = 'Дальше', onFinish }) {
   }, [element, dispatch, isFinished, nextIndex, onFinish])
 
 
-  return <div>
-    <Text text={element.text} bg={element.bg} next={handleNext} nextText={element.nextText || nextText} />
+  return <div className={s.Story} data-bg={element.bg || bg}>
+    <Text text={element.text} next={handleNext} nextText={element.nextText || nextText} />
   </div>
 }

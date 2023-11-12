@@ -4,7 +4,7 @@ export function useIterator(array) {
 	const [index, setIndex] = useState(0);
 	const [isFinished, setIsFinished] = useState(false);
 
-	const element = array[index]
+	const element = array[index];
 
 	const next = useCallback(() => {
 		setIndex((prev) => Math.min(prev + 1, array.length));

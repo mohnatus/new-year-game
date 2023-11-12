@@ -16,7 +16,6 @@ export function Day({ index }) {
   const dispatch = useAppDispatch()
   const state = useAppState()
 
-  const dayState = useRef({})
   const day = gameDays[index]
 
   const [stageIndex, setStageIndex] = useState(0)
@@ -54,21 +53,16 @@ export function Day({ index }) {
   const handleNextStage = async (data) => {
     if (element.id) {
       await dispatch(setStageData(element.id, data))
-      console.log({ state })
-
-      // dayState.current[element.id] = data;
     }
 
     setNext(true)
-
-
   }
 
   const handleFinishDay = useCallback(() => {
     dispatch(finishDay())
   }, [dispatch])
 
-  if (element?.type === STORY) return <Story slides={element.slides} onFinish={handleNextStage} />
+  if (element?.type === STORY) return <Story key={stageIndex} bg={element.bg} slides={element.slides} onFinish={handleNextStage} />
   if (element?.type === TREE) return <PearTree onFinish={handleNextStage} />
   if (element?.type === FIGHT) return <Fight magic={element.magic} onFinish={handleNextStage} />
   if (element?.type === CHOICE) return <Choice text={element.text} options={element.options} onFinish={handleNextStage} />

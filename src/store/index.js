@@ -9,7 +9,7 @@ export {
 	addSlingshot,
 	addMedicine,
 	removeMedicine,
-	addCider,
+	changeCider,
 	resetState,
 	applyPower,
 } from './actions';

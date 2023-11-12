@@ -1,0 +1,46 @@
+.Fight {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 2;
+
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+
+	background-image: url(../../assets/fight.jpg);
+}
+
+.Actions {
+  position: absolute;
+  top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 2;
+  pointer-events: all;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Controls {
+  position: absolute;
+  left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 2;
+  pointer-events: all;
+}
+
+.Learning {
+  position: absolute;
+  left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 3;
+  pointer-events: all;
+}
